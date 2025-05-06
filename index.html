@@ -24,13 +24,11 @@
 
     .btn-container {
       margin-top: 30px;
-      position: relative;
-      width: 300px;
-      height: 120px;
+      display: flex;
+      gap: 20px;
     }
 
-    #btnNo {
-      position: absolute;
+    #btnYes {
       transition: all 0.3s ease;
     }
 
@@ -45,8 +43,8 @@
   <h2>Delala Yuvita Sari, kamu sayang nggak sama aku? 🥺</h2>
 
   <div class="btn-container">
-    <button class="btn btn-success btn-lg me-3" onclick="jawabIya()">Iya 🥰</button>
-    <button class="btn btn-danger btn-lg" id="btnNo" onmouseover="geserTombol()">Nggak 😤</button>
+    <button class="btn btn-success btn-lg" id="btnYes" onclick="jawabIya()">Iya 🥰</button>
+    <button class="btn btn-danger btn-lg" id="btnNo" onclick="tolak()">Nggak 😤</button>
   </div>
 
   <div class="alert alert-success mt-4 d-none" id="alertIya" role="alert">
@@ -54,18 +52,12 @@
   </div>
 
   <script>
-    const btnNo = document.getElementById('btnNo');
+    let scale = 1;
 
-    function geserTombol() {
-      const container = document.querySelector('.btn-container');
-      const maxX = container.clientWidth - btnNo.offsetWidth;
-      const maxY = container.clientHeight - btnNo.offsetHeight;
-
-      const randomX = Math.floor(Math.random() * maxX);
-      const randomY = Math.floor(Math.random() * maxY);
-
-      btnNo.style.left = `${randomX}px`;
-      btnNo.style.top = `${randomY}px`;
+    function tolak() {
+      scale += 0.2;
+      const btnYes = document.getElementById('btnYes');
+      btnYes.style.transform = `scale(${scale})`;
     }
 
     function jawabIya() {
