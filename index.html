@@ -2,66 +2,121 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8">
-  <title>Delala Yuvita Sari 💖</title>
+  <title>Delala Yuvita Sari 💘</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <style>
     body {
       background-color: #fff0f5;
       height: 100vh;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
-      flex-direction: column;
+      overflow: hidden;
       font-family: 'Comic Sans MS', cursive, sans-serif;
+      position: relative;
     }
 
     h2 {
       text-align: center;
       color: #d63384;
+      max-width: 90%;
+      animation: typing 3s steps(40, end), blink-caret .75s step-end infinite;
+      white-space: nowrap;
+      overflow: hidden;
+      border-right: 3px solid pink;
+    }
+
+    @keyframes typing {
+      from { width: 0 }
+      to { width: 100% }
+    }
+
+    @keyframes blink-caret {
+      from, to { border-color: transparent }
+      50% { border-color: pink; }
     }
 
     .btn-container {
       margin-top: 30px;
       display: flex;
       gap: 20px;
+      position: relative;
     }
 
     #btnYes {
       transition: all 0.3s ease;
+      z-index: 2;
+    }
+
+    #btnNo {
+      position: absolute;
+      transition: top 0.2s, left 0.2s;
+      z-index: 3;
     }
 
     #alertIya {
       font-size: 1.2rem;
       margin-top: 20px;
     }
+
+    .love {
+      position: absolute;
+      color: red;
+      font-size: 2rem;
+      animation: pop 1s ease-out forwards;
+    }
+
+    @keyframes pop {
+      0% { transform: scale(1); opacity: 1; }
+      100% { transform: scale(3); opacity: 0; top: -50px; }
+    }
   </style>
 </head>
 <body>
 
-  <h2>Delala Yuvita Sari, kamu sayang nggak sama aku? 🥺</h2>
+  <h2 id="question">Delala Yuvita Sari, kamu sayang nggak sama aku? 🥺</h2>
 
   <div class="btn-container">
     <button class="btn btn-success btn-lg" id="btnYes" onclick="jawabIya()">Iya 🥰</button>
-    <button class="btn btn-danger btn-lg" id="btnNo" onclick="tolak()">Nggak 😤</button>
+    <button class="btn btn-danger btn-lg" id="btnNo" onmouseover="lari()" onclick="trick()">Nggak 😤</button>
   </div>
 
   <div class="alert alert-success mt-4 d-none" id="alertIya" role="alert">
-    Aku juga sayang kamu banget, Delala Yuvita Sari! ❤️💕
+    Aku juga sayang kamu banget, Delala Yuvita Sari! ❤️💕<br>
+    - dari Bagus Slamet Oetomo 💌
   </div>
 
   <script>
     let scale = 1;
 
-    function tolak() {
-      scale += 0.2;
-      const btnYes = document.getElementById('btnYes');
-      btnYes.style.transform = `scale(${scale})`;
+    function jawabIya() {
+      const alert = document.getElementById('alertIya');
+      alert.classList.remove('d-none');
+
+      // Love animation
+      for (let i = 0; i < 10; i++) {
+        const love = document.createElement('div');
+        love.innerText = "❤️";
+        love.classList.add('love');
+        love.style.left = `${Math.random() * window.innerWidth}px`;
+        love.style.top = `${Math.random() * window.innerHeight}px`;
+        document.body.appendChild(love);
+        setTimeout(() => love.remove(), 1000);
+      }
     }
 
-    function jawabIya() {
-      document.getElementById('alertIya').classList.remove('d-none');
+    function lari() {
+      const btn = document.getElementById('btnNo');
+      const x = Math.random() * (window.innerWidth - 100);
+      const y = Math.random() * (window.innerHeight - 100);
+      btn.style.left = `${x}px`;
+      btn.style.top = `${y}px`;
+    }
+
+    function trick() {
+      alert("Nggak bisa! Kamu harus bilang IYA 😤");
     }
   </script>
 
